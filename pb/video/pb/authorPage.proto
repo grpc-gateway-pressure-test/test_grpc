@@ -1,0 +1,137 @@
+syntax = "proto3";
+
+import "videoHome.proto";
+
+package pb;
+
+// protoc -I pb/ pb/authorPage.proto --go_out=plugins=grpc:pb
+
+service authorPage{
+    rpc CateNewList(CateListReq) returns (CateListRes){};
+    rpc CateList(CateListReq) returns (CateListRes){};
+    rpc NumNewList (NumListReq) returns (NumListRes){};
+    rpc NumList (NumListReq) returns (NumListRes){};
+    rpc ShowListVID (ShowListVidReq) returns (ShowListVidRes){};
+    rpc ShowList (ShowListReq) returns (ShowListRes){};
+    rpc GetvidListByUID (GetVidListByUidReq) returns (GetvidListByUidRes){};
+}
+
+//catenewlist and catelist request type
+message CateListReq {
+    uint32 cateID = 1[json_name="cateid"];
+    uint32 uid=2[json_name="uid"];
+    uint32 short=3[json_name="short"];
+    uint32 offset=4[json_name="offset"];
+    uint32 limit=5[json_name="limit"];
+}
+
+//numnewlist and numlist request type
+message NumListReq {
+    uint32 uid=1[json_name="uid"];
+    uint32 offset=2[json_name="offset"];
+    uint32 limit=3[json_name="limit"];
+}
+
+//showlistvid request type
+message ShowListVidReq {
+    uint32 uid=1[json_name="uid"];
+    uint32 showID =2[json_name="showId"];
+    uint32 showType=3[json_name="showType"];
+    uint32 offset =4[json_name="offset"];
+    uint32 limit =5[json_name="limit"];
+}
+
+//ShowListVidForPlayReq request type
+message ShowListVidForPlayReq {
+    uint32 uid=1[json_name="uid"];
+    uint32 showID =2[json_name="showId"];
+}
+
+//ShowList request type
+message ShowListReq {
+    uint32 uid=1[json_name="uid"];
+    uint32 offset=2[json_name="offset"];
+    uint32 limit=3[json_name="limit"];
+}
+
+//GetvidListByUid request type
+message GetVidListByUidReq {
+    uint32 uid=1[json_name="uid"];
+}
+
+ 
+
+//catenewlist and catelist responce 
+message CateListRes{
+    int32 code=1[json_name="code"];
+    string message=2[json_name="msg"];
+    CateData data=3[json_name="data"];
+}
+message CateData {
+    repeated uint32 cateList =1[json_name = "cateList"];
+    uint32 count =2 [json_name="count"];
+    repeated VideoUnionListData list=3[json_name="list"];
+
+}
+
+//numnewlist and numlist responce type,data type is not repeated to stream it
+message NumListRes {
+    int32 code=1[json_name="code"];
+    string message=2[json_name="msg"];
+    repeated VideoUnionListData data=3[json_name="data"];
+}
+
+//showlistvid responce type
+message ShowListVidRes {
+    int32 code=1[json_name="code"];
+    string message=2[json_name="msg"];
+    repeated VideoUnionListData data=3[json_name="data"];
+}
+
+//ShowListVidForPlayRes responce type
+message ShowListVidForPlayRes {
+    int32 code=1[json_name="code"];
+    string message=2[json_name="msg"];
+    VideoUnionListForPlayData data=3[json_name="data"];
+}
+
+//showListVidForPlayRes 嵌套数据层
+message VideoUnionListForPlayData {
+    uint64 fanNum =1 [json_name="fanNum"];
+    repeated VideoUnionListData list=2 [json_name="list"];
+}
+
+//ShowList responce type
+message ShowListRes {
+    int32 code=1[json_name="code"];
+    string message=2[json_name="msg"];
+    ShowListData data=3[json_name="data"];
+}
+
+message ShowListData{
+    uint32 count=1[json_name="count"];
+    repeated ShowData list=2[json_name="list"];
+}
+
+message ShowData{
+    uint32 uid =1 [json_name="uid"];
+    uint32 showID =2 [json_name="showID"];
+    string title =3[json_name="title"];
+    uint32 startTime =4[json_name="startTime"];
+    uint32 endTime=5[json_name="endTime"];
+    uint32 reNum =6[json_name="reNum"];
+    uint32 cutNum=7[json_name="cutNum"];
+    uint32 fanNum=8[json_name="fanCut"];
+
+    repeated uint32 fuids=9 [json_name="fuids"];
+    repeated VideoUnionListData  replay=10 [json_name="replay"];
+    repeated VideoUnionListData  ucut =11 [json_name="ucut"];
+    repeated VideoUnionListData  fcut =12 [json_name="fcut"];
+}
+
+//Getvidlistbyuid responce type
+message GetvidListByUidRes {
+    int32 code=1[json_name="code"];
+    string message=2[json_name="msg"];
+    repeated uint64 data=3[json_name="data"];
+}

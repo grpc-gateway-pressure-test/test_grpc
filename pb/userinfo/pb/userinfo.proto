@@ -1,0 +1,76 @@
+syntax = "proto3";
+package pb;
+
+message GetUserInfoRes
+{
+	int32 result = 1;
+	uint32 uid = 2;
+	string nn = 3;
+	string un = 4;
+	int32 gid = 5;
+	int32 orm = 6;
+	int32 ems = 7;
+	string po = 8;
+	int32 pos = 9;
+	int32 it = 10;
+	int32 its = 11;
+	int32 sex = 12;
+	string icon = 13;
+	string rip = 14;
+	string rsrc = 15;
+	uint64 rt = 16;
+	int32 cid = 17;
+	string qq = 18;
+	uint64 update_time = 19;
+}
+
+message GetMemberDetailReq
+{
+    uint32 uid = 1 ; // 用户id
+    string nickname = 2 ; // 昵称
+    string user_name = 3 ; // 用户名
+    string email = 4 ; // email地址，查询绑定状态的email
+    string phone = 5 ; // 手机号,查询绑定状态的手机号
+};
+
+message BatchGetMemberCustomReq
+{
+    uint64 user_info_mask = 1 ; // 掩码
+    repeated GetMemberDetailReq req_list = 2 ; // 批量请求集合
+};
+
+message GetMemberCustomResp
+{
+	int32 result = 1 [json_name="result"]; // 结果码
+    uint32 uid = 2 [json_name="uid"]; // 用户id
+    string nickname = 3 [json_name="nn"]; // 昵称
+    string username = 4 [json_name="un"]; // username
+    int32 group_id = 5 [json_name="gid"]; // 用户分组id
+    int32 own_room = 6 [json_name="orm"]; // 是否主播
+    string email = 7 [json_name="em"]; // email地址
+    int32 email_status = 8 [json_name="ems"]; // email绑定状态
+    string phone = 9 [json_name="po"]; // 手机号
+    int32 phone_status = 10 [json_name="pos"]; // 手机号绑定状态
+    int32 ident_type = 11 [json_name="it"]; // 实名认证类型
+    int32 ident_status = 12 [json_name="its"]; // 实名认证状态
+    int32 sex = 13 [json_name="sex"]; // 性别
+    string icon = 14 [json_name="icon"]; // 头像url
+    string reg_ip = 15 [json_name="rip"]; // 注册ip
+    string reg_src = 16 [json_name="rsrc"]; // 注册来源
+    int32 reg_time = 17 [json_name="rt"]; // 注册时间
+    int32 cps_id = 18 [json_name="cid"]; // 联合运营cps_id
+    string qq = 19 [json_name="qq"]; // qq号
+    string nation = 20 [json_name="n"]; // 地理位置，国家
+    string province = 21 [json_name="p"]; // 地理位置，省份
+    string city = 22 [json_name="c"]; // 地理位置，城市
+    int32 update_time = 23 [json_name="ut"]; // 更新时间
+    string password = 24 [json_name="pass"]; // 密码，AuthServer Writer才返回此项
+    string salt = 25 [json_name="s"]; // 盐，AuthServer Writer才返回此项
+    int32 seq = 26 [json_name="seq"]; // 序列号，用于确认缓存数据与数据库数据一致性，AuthServer Writer才返回此项
+};
+
+message BatchGetMemberCustomResp
+{
+    int32 result = 1 [json_name="result"]; // 结果码
+    repeated GetMemberCustomResp list = 2 [json_name="list"]; // 响应结果集合
+};

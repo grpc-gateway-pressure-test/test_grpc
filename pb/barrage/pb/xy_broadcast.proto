@@ -1,0 +1,20 @@
+// 使用方法:protoc -I ./pb/ ./pb/*.proto --go_out=plugins=grpc:pb
+syntax = "proto3";
+package pb;
+
+message BroadcastReq
+{
+    string reqsrc = 1 ;   //调用模块
+    int32  appid = 2 ;     // 调用ID
+    Content content = 3 ;  //广播内容
+};
+
+message BroadcastRes
+{
+    int32 result = 1 ; //错误码
+};
+
+message Content {
+    string  type  = 1 ; //消息类型
+    int32  rid   = 2 ;  // 房间id
+}

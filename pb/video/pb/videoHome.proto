@@ -1,0 +1,149 @@
+syntax = "proto3";
+
+package pb;
+
+// protoc -I pb/ pb/authorPage.proto --go_out=plugins=grpc:pb
+
+service videoHome{
+    rpc List (ListReq) returns (ListRes){};
+    rpc Info (InfoReq) returns (InfoRes){};
+    rpc UidInfo (UidInfoReq) returns(UIDInfoRes){};
+    rpc VidInfo (VidInfoReq) returns (VIDInfoRes){}; 
+}
+
+//list request type
+message ListReq {
+    repeated uint64 vids =1[json_name="vids"]; 
+}
+
+//info request type
+message InfoReq {
+    uint64 vid =1[json_name="vid"];
+    bool master=2[json_name="is_master"];
+}
+
+//uidinfo request type
+message UidInfoReq{
+    uint32 uid=1[json_name="uid"];
+}
+
+//vidinfo request type
+message VidInfoReq {
+    uint64 vid=1[json_name="vid"];
+}
+
+
+//list responce type
+message ListRes {
+    int32 code=1    [json_name="code"];
+    string message=2 [json_name="msg"];
+    repeated VideoUnionListData data=3 [json_name="data"];
+    
+}
+
+// info responce type
+message InfoRes{
+    int32 code =1 [json_name="code"];
+    string message =2 [json_name="msg"];
+    VideoUnionData data=3 [json_name="data"];
+    
+}
+
+// uidinfo responce type
+message UIDInfoRes{
+    int32 code =1 [json_name="code"];
+    string message=2 [json_name="msg"];
+    UIDData data=3 [json_name="data"];
+}
+
+message UIDData{
+    uint32 noReCount=1 [json_name = "no_re_count"];
+    uint32 replayCount=2 [json_name = "replay_count"];
+    uint32 uid =3 [json_name = "uid"];
+    uint32 uploadTime = 4[json_name = "upload_time"];
+    uint32 vcount=5[json_name="vcount"];
+}
+
+//vidinfores vidinfo responce type
+message VIDInfoRes {
+    int32 code=1 [json_name="code"];
+    string message=2[json_name="msg"];
+    VIDData data=3[json_name="data"];
+}
+message VIDData{
+    uint32 cid1=1 [json_name = "cid1"];
+    uint32 cid2=2 [json_name = "cid2"];
+    uint32 ctime=3   [json_name="ctime"];
+    uint32 isFirst=4 [json_name="is_first"];
+    uint32 isReAudit=5 [json_name="is_re_audit"];
+    uint32 isReplay=6 [json_name="is_replay"];
+    uint32 isShort =7 [json_name="is_short"];
+    uint32 isVertical =8[json_name="is_vertical"];
+    uint32 status=9[json_name="status"];
+    uint32 topicID=10[json_name="topic_id"];
+    uint32 uid=11[json_name="uid"];
+    uint32 utime=12[json_name="utime"];
+    uint32 videoType=13[json_name="video_type"];
+    uint64 vid=14[json_name="vid"];
+}
+
+
+message VideoUnionData{
+    uint64 vid = 1 [json_name = "vid"];              //`json:"vid"`
+    uint32 cid1 =2 [json_name = "cid1"];             //`json:"cid1"`
+    uint32 cid2 = 3[json_name="cid2"];               //`json:"cid2"`
+    uint32 uid = 4[json_name="uid"];                 //`json:"uid"`
+    uint32 status =5 [json_name="status"];           //`json:"status"`
+    uint32 isReAudit =6 [json_name="is_re_audit"];   //`json:"is_re_audit"`
+    uint32 isReplay = 7 [json_name="is_replay"];     //`json:"is_replay"`
+    uint32 isVertical = 8 [json_name="is_vertical"]; //`json:"is_vertical"`
+    uint32 isShort = 9 [json_name="is_short"];       //`json:"is_short"`
+    uint32 topicID = 10 [json_name="topic_id"];      //`json:"topic_id"`
+    uint32 createTime = 11[json_name="create_time"]; //`json:"create_time"`
+    uint32 updateTime=12 [json_name="update_time"];  //`json:"update_time"`
+    uint32 isFirst=13 [json_name="is_first"];        //`json:"is_first"`
+    uint32 videoType=14 [json_name="video_type"];
+
+    string title=15 [json_name="title"];            //`json:"title"`
+    string videoPic=16 [json_name="video_pic"];     //`json:"video_pic"`
+    string wsVideoPic=17 [json_name="ws_video_pic"];//`json:"ws_video_pic"`
+    string contents=18 [json_name="contents"];      //`json:"contents"`
+    string timePoint=19 [json_name="time_point"];   //`json:"time_point"`
+    double videoDuration=20 [json_name="video_duration"];//`json:"video_duration"`
+    string thumbVideo=21 [json_name="thumb_video"];//`json:"thumb_video"`
+    string viewThumb=22 [json_name="view_thumb"];   //`json:"view_thumb"`
+    string pointThumb=23[json_name="point_thumb"];
+    string tags=24 [json_name="tags"];              //`json:"tags"`
+    string verPic=25 [json_name="ver_pic"];         //`json:"ver_pic"`
+    string error=26 [json_name="error"];
+
+}
+
+message VideoUnionListData{
+    uint64 vid = 1 [json_name = "vid"];              //`json:"vid"`
+    uint32 cid1 =2 [json_name = "cid1"];             //`json:"cid1"`
+    uint32 cid2 = 3[json_name="cid2"];               //`json:"cid2"`
+    uint32 uid = 4[json_name="uid"];                 //`json:"uid"`
+    uint32 status =5 [json_name="status"];           //`json:"status"`
+    uint32 isReAudit =6 [json_name="is_re_audit"];   //`json:"is_re_audit"`
+    uint32 isReplay = 7 [json_name="is_replay"];     //`json:"is_replay"`
+    uint32 isVertical = 8 [json_name="is_vertical"]; //`json:"is_vertical"`
+    uint32 isShort = 9 [json_name="is_short"];       //`json:"is_short"`
+    uint32 topicID = 10 [json_name="topic_id"];      //`json:"topic_id"`
+    uint32 createTime = 11[json_name="create_time"]; //`json:"create_time"`
+    uint32 updateTime=12 [json_name="update_time"];  //`json:"update_time"`
+    uint32 isFirst=13 [json_name="is_first"];        //`json:"is_first"`
+    uint32 videoType=14 [json_name="video_type"];
+
+    string title=15 [json_name="title"];            //`json:"title"`
+    string videoPic=16 [json_name="video_pic"];     //`json:"video_pic"`
+    string wsVideoPic=17 [json_name="ws_video_pic"];//`json:"ws_video_pic"`
+    string contents=18 [json_name="contents"];      //`json:"contents"`
+    string timePoint=19 [json_name="time_point"];   //`json:"time_point"`
+    double videoDuration=20 [json_name="video_duration"];//`json:"video_duration"`
+    string pointThumb=23[json_name="point_thumb"];
+    string tags=24 [json_name="tags"];              //`json:"tags"`
+    string verPic=25 [json_name="ver_pic"];         //`json:"ver_pic"`
+    string error=26 [json_name="error"];
+
+}

@@ -1,0 +1,40 @@
+syntax = "proto3";
+package pb;
+
+option go_package="seo";
+
+//protoc --go_out=plugins=grpc:. *.proto
+
+service seoService{
+    //获取房间seo信息
+    rpc getRoomSeo(roomSeoReq) returns (seoRes){};
+    //获取分类seo信息
+    rpc getCateSeo(cateSeoReq) returns (seoRes){};
+}
+
+
+// 获取房间seo Req
+message roomSeoReq {
+    uint32 roomID = 1;
+}
+
+//获取分类seo Req
+message cateSeoReq{
+    uint32 cateType = 1;
+    uint32 cateID = 2;
+}
+
+
+// 获取seo Res
+message seoRes {
+    int32 code = 1;
+    string message = 2;
+    seoInfo data = 3;
+}
+
+// seo 内容
+message seoInfo {
+    string title = 1;
+    string keyword = 2;
+    string description=3;
+}

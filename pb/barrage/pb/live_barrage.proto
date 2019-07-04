@@ -1,0 +1,33 @@
+// 使用方法:protoc -I ./pb/ ./pb/*.proto --go_out=plugins=grpc:pb
+syntax = "proto3";
+package pb;
+
+service DanmakuServer {
+    rpc List (ListReq) returns (ListRes) {}
+}
+
+message ListReq {
+    uint32 Rid = 1; // 房间ID
+    uint32 Ts = 2;  // 时间戳
+    uint32 Cnt = 3; // 弹幕总数
+}
+
+message ListRes {
+    uint32 Ts = 1;                 // 时间戳
+    repeated Danmaku Danmakus = 2; // 弹幕内容
+    int32 Cnt = 3;                 // 弹幕总数
+}
+
+message Danmaku {
+    string Content = 1; // 弹幕内容
+    uint32 Ct = 2;      // Ct
+    string Did = 3;     // 设备ID
+    string Icon = 4;    // Icon
+    string IP = 5;      // 发送者IP
+    string Nick = 6;    // 用户昵称
+    uint32 Pg = 7;      // 用户平台身份标识
+    uint32 Rg = 8;      // 用户房间身份表示
+    uint32 Rid = 9;     // 房间ID
+    uint32 Ts = 10;     // 时间戳（秒）
+    uint32 Uid = 11;    // 发送者UID
+}
